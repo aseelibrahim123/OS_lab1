@@ -3,7 +3,7 @@
 scan_dir="$1"
 malicious_dir="$2"
 interval_secs="$3"
-
+WHITELIST_FILE="whitelist.txt"
 
 if [ "$#" -ne 3 ]; then
     echo "Missing arguments <scan_dir> <malicious_dir> <interval_secs>"
@@ -15,7 +15,14 @@ scan_virus() {
 
     for file in "$scan_dir"/*
     do
-        filename=$(basename "$file")
+       file_path=$(realpath "$file")
+       filename=$(basename "$file")
+        
+    	if [ -f "$WHITELIST_FILE" ] && grep -Fxq -- "$file_path" "$WHITELIST_FILE"; then
+	    echo "$filename is whitelisted. Skipping scan"
+	    continue
+	fi	
+
         has_virus=false
 
         case "$filename" in

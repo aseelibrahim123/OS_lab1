@@ -2,6 +2,7 @@
 
 scan_dir="$1"
 malicious_dir="$2"
+WHITELIST_FILE="/home/aseel/OS-lab1/whitelist.txt"
 
 sleep $((23 - $(date +%S)))
 
@@ -18,6 +19,12 @@ scan_virus() {
     for file in "$scan_dir"/*
     do
         filename=$(basename "$file")
+        
+        if [ -f "$WHITELIST_FILE" ] && grep -Fxq -- "$file" "$WHITELIST_FILE"; then
+	    echo "$filename is whitelisted. Skipping scan"
+	    continue
+	fi	
+
         has_virus=false
 
         case "$filename" in
