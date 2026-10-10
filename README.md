@@ -200,19 +200,17 @@ cd ~/OS-lab1
 
 To start the antivirus daemon:
 
-make antivirus SCAN_DIR=test MALICIOUS_DIR=malicious INTERVAL_SEC=5
+make antivirus SCAN_DIR={your scan folder path} MALICIOUS_DIR={your malicious folder path} INTERVAL_SEC={the interval between virus scans}
 
 To start the restore tool:
 
-make restore SCAN_DIR=test MALICIOUS_DIR=malicious
+make restore SCAN_DIR={your scan folder path} MALICIOUS_DIR={your malicious folder path}
 
 To run only the pre-build step:
 
 make pre-build MALICIOUS_DIR=malicious
 
 Note: The Makefile uses the variables SCAN_DIR, MALICIOUS_DIR, and INTERVAL_SEC. These values must be supplied when running the relevant targets unless defaults are defined in the Makefile.
-
-Each command line in the Makefile must begin with a literal tab character, as required by Make.
 
 6. Bonus 1 — Cron-Based Antivirus
 
